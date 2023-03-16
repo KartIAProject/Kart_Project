@@ -1,8 +1,17 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Kart.tscn" type="PackedScene" id=1]
+[ext_resource path="res://KartRigid.tscn" type="PackedScene" id=2]
 
 [node name="Scene" type="Node2D"]
 
 [node name="Kart" parent="." instance=ExtResource( 1 )]
 position = Vector2( 484, 294 )
+
+[node name="Kart2" parent="." instance=ExtResource( 2 )]
+position = Vector2( 834, 288 )
+gravity_scale = 0.0
+continuous_cd = 2
+contacts_reported = 4
+contact_monitor = true
+angular_damp = 10.0
