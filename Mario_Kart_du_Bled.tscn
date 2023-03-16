@@ -285,9 +285,6 @@ contacts_reported = 4
 contact_monitor = true
 angular_damp = 10.0
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_group_": true
-}
 
 [node name="Sprite" type="Sprite" parent="player"]
 position = Vector2( 5.96046e-08, 6.10352e-05 )
@@ -305,6 +302,8 @@ autoplay = true
 stream_paused = true
 
 [node name="Camera2D" type="Camera2D" parent="player"]
+
+[node name="Camera2D2" type="Camera2D" parent="player"]
 current = true
 
 [node name="checkpoint1" type="Area2D" parent="."]
