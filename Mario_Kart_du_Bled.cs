@@ -83,7 +83,6 @@ public class Mario_Kart_du_Bled : Node2D
         var msg2 = (GetNode<CanvasLayer>("HUD")).GetNode<Label>("best");
         msg2.Text = "BEST :"+best_time;
         msg2.Show();
-        time = 0;
     }
   }
 }
