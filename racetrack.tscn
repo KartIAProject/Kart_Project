@@ -1,5 +1,6 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=18 format=2]
 
+[ext_resource path="res://racetrack.cs" type="Script" id=1]
 [ext_resource path="res://racing_tileset.tres" type="TileSet" id=2]
 [ext_resource path="res://player.cs" type="Script" id=3]
 [ext_resource path="res://Cars/car_red_1.png" type="Texture" id=4]
@@ -17,7 +18,23 @@ height = 58.0
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 200, 100 )
 
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 172.5, 15.5 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 10.5, 108 )
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 105, 10 )
+
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 19.75, 106.75 )
+
+[sub_resource type="RectangleShape2D" id=7]
+extents = Vector2( 26, 112.5 )
+
 [node name="racetrack" type="Node2D"]
+script = ExtResource( 1 )
 
 [node name="background" type="TileMap" parent="."]
 tile_set = ExtResource( 2 )
@@ -255,6 +272,56 @@ position = Vector2( -94.2588, -2.13947 )
 shape = SubResource( 2 )
 passby_press = true
 
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="time" type="Label" parent="HUD"]
+margin_left = 34.0
+margin_top = 82.0
+margin_right = 134.0
+margin_bottom = 118.0
+custom_fonts/font = ExtResource( 8 )
+text = "TIME"
+
+[node name="best" type="Label" parent="HUD"]
+margin_left = 34.0
+margin_top = 52.0
+margin_right = 142.0
+margin_bottom = 102.0
+custom_fonts/font = ExtResource( 8 )
+text = "BEST"
+
+[node name="nbcp" type="Label" parent="HUD"]
+margin_left = 34.0
+margin_top = 23.0
+margin_right = 458.0
+margin_bottom = 59.0
+custom_fonts/font = ExtResource( 8 )
+text = "CHECKPOINT PASSED"
+
+[node name="checkpoint" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="checkpoint"]
+position = Vector2( 191, 326.5 )
+shape = SubResource( 3 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="checkpoint"]
+position = Vector2( 938.5, 125 )
+shape = SubResource( 4 )
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="checkpoint"]
+position = Vector2( 1282, 495 )
+shape = SubResource( 5 )
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="checkpoint"]
+position = Vector2( 1027.25, 1279.25 )
+shape = SubResource( 6 )
+
+[node name="finish line" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="finish line"]
+position = Vector2( 449, 1281.5 )
+shape = SubResource( 7 )
+
 [connection signal="body_entered" from="player" to="player" method="_on_player_body_entered"]
 [connection signal="gui_input" from="controls/steering" to="controls" method="_on_steering_gui_input"]
 [connection signal="pressed" from="controls/reverse/reverse" to="controls" method="_on_reverse_pressed"]
@@ -263,3 +330,5 @@ passby_press = true
 [connection signal="released" from="controls/drift/drift" to="controls" method="_on_drift_released"]
 [connection signal="pressed" from="controls/accelerate/accelerate" to="controls" method="_on_accelerate_pressed"]
 [connection signal="released" from="controls/accelerate/accelerate" to="controls" method="_on_accelerate_released"]
+[connection signal="body_entered" from="checkpoint" to="." method="_on_checkpoint_body_entered"]
+[connection signal="body_entered" from="finish line" to="." method="_on_finish_line_body_entered"]

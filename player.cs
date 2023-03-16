@@ -3,16 +3,16 @@ using System;
 
 public class player : RigidBody2D
 {
-    [Export] 
-    public float STEERING=300.0F;
-    [Export] 
-    public float ACCELERATION=50.0F;
-    [Export] 
-    public float FRICTION=2.0F;
-    [Export] 
-    public float DRIFT_FRICTION=0.8F;
-    [Export] 
-    public float DRIFT_STEERING=600.0F;
+	[Export] 
+	public float STEERING=300.0F;
+	[Export] 
+	public float ACCELERATION=50.0F;
+	[Export] 
+	public float FRICTION=2.0F;
+	[Export] 
+	public float DRIFT_FRICTION=0.8F;
+	[Export] 
+	public float DRIFT_STEERING=600.0F;
 
     private IA Ia = new IA();
 
