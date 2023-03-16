@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://player.cs" type="Script" id=1]
 [ext_resource path="res://racing_tileset.tres" type="TileSet" id=2]
@@ -8,6 +8,8 @@
 [ext_resource path="res://Mur_ext.png" type="Texture" id=6]
 [ext_resource path="res://Zone lente.png" type="Texture" id=7]
 [ext_resource path="res://Mur_int.png" type="Texture" id=8]
+[ext_resource path="res://Mario_Kart_du_Bled.cs" type="Script" id=9]
+[ext_resource path="res://interface/fonts/kenvector_future_32.tres" type="DynamicFont" id=10]
 
 [sub_resource type="TileSet" id=3]
 0/name = "Piste.png 0"
@@ -199,7 +201,23 @@ points = PoolVector2Array( 449.028, 746.771, 256.667, 746.771, 256.667, 672.465,
 radius = 31.0
 height = 58.0
 
+[sub_resource type="RectangleShape2D" id=24]
+extents = Vector2( 183.408, 8.11991 )
+
+[sub_resource type="RectangleShape2D" id=30]
+extents = Vector2( 18, 140 )
+
+[sub_resource type="RectangleShape2D" id=31]
+extents = Vector2( 150.5, 8 )
+
+[sub_resource type="RectangleShape2D" id=32]
+extents = Vector2( 8, 135 )
+
+[sub_resource type="RectangleShape2D" id=33]
+extents = Vector2( 164, 10 )
+
 [node name="Mario_Kart_du_Bled" type="Node2D"]
+script = ExtResource( 9 )
 __meta__ = {
 "_edit_horizontal_guides_": [  ]
 }
@@ -267,4 +285,67 @@ stream_paused = true
 [node name="Camera2D" type="Camera2D" parent="player"]
 current = true
 
+[node name="checkpoint1" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="checkpoint1"]
+position = Vector2( 784.54, 2324.87 )
+rotation = -3.13478
+scale = Vector2( 1, 1 )
+shape = SubResource( 24 )
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="time" type="Label" parent="HUD"]
+margin_left = 42.0
+margin_top = 95.0
+margin_right = 142.0
+margin_bottom = 131.0
+custom_fonts/font = ExtResource( 10 )
+text = "TIME"
+
+[node name="best" type="Label" parent="HUD"]
+margin_left = 27.0
+margin_top = 126.0
+margin_right = 135.0
+margin_bottom = 162.0
+custom_fonts/font = ExtResource( 10 )
+text = "BEST"
+
+[node name="nbcp" type="Label" parent="HUD"]
+margin_left = 64.0
+margin_top = 64.0
+margin_right = 488.0
+margin_bottom = 100.0
+custom_fonts/font = ExtResource( 10 )
+text = "CHECKPOINT PASSED"
+
+[node name="finish line" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="finish line"]
+position = Vector2( 1196, 2504 )
+shape = SubResource( 30 )
+
+[node name="checkpoint2" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="checkpoint2"]
+position = Vector2( 870.5, 1623 )
+shape = SubResource( 31 )
+
+[node name="checkpoint3" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="checkpoint3"]
+position = Vector2( 1378, 1454 )
+shape = SubResource( 32 )
+
+[node name="checkpoint4" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="checkpoint4"]
+position = Vector2( 1489, 2139 )
+shape = SubResource( 33 )
+
 [connection signal="body_entered" from="player" to="player" method="_on_player_body_entered"]
+[connection signal="body_entered" from="checkpoint1" to="." method="_on_checkpoint1_body_entered"]
+[connection signal="body_entered" from="finish line" to="." method="_on_finish_line_body_entered"]
+[connection signal="body_entered" from="checkpoint2" to="." method="_on_checkpoint2_body_entered"]
+[connection signal="body_entered" from="checkpoint3" to="." method="_on_checkpoint3_body_entered"]
+[connection signal="body_entered" from="checkpoint4" to="." method="_on_checkpoint4_body_entered"]
