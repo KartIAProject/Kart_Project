@@ -77,6 +77,9 @@ public class IA{
 		return tab;
 	}
 
+
+
+
 	public void updateGeneration(){
 		return;
 		//Array.Sort(this.population,new IndividuComparer);
