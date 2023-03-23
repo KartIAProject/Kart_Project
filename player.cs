@@ -34,10 +34,7 @@ public class player : RigidBody2D
         public override void _Ready()
     {
         Random rnd = new Random();
-        int pos1 = rnd.Next()%100;
-        int pos2 = rnd.Next()%100;
         s1 = GetNode<RayCast2D>("/root/Mario_Kart_du_Bled/player/sensors/s1");
-        s1.Position = new Vector2(pos1,pos2);
         s2 = GetNode<RayCast2D>("/root/Mario_Kart_du_Bled/player/sensors/s2");
         s3 = GetNode<RayCast2D>("/root/Mario_Kart_du_Bled/player/sensors/s3");
         //GetChild<Area2D>(4).GetChild<CollisionShape2D>(0).Position = new Vector2(pos1,pos2);
@@ -48,8 +45,11 @@ public class player : RigidBody2D
         s2.ForceRaycastUpdate();
         s3.ForceRaycastUpdate();
         
+        CollisionShape2D cs1 = GetNode<Area2D>("/root/Mario_Kart_du_Bled/finish line").GetChild<CollisionShape2D>(0);
+        CollisionShape2D cs2 = GetNode<Area2D>("/root/Mario_Kart_du_Bled/checkpoint1").GetChild<CollisionShape2D>(0);
+
         int nbCheckpoints = GetParent<Mario_Kart_du_Bled>().getNbCheckpoints();
-        bool[] tab = Ia.launch(this.LinearVelocity,nbCheckpoints);
+        bool[] tab = Ia.launch(this.LinearVelocity,0,s1,s2,s3,cs1.Position,cs2.Position);
 		input(tab);
     }
 	

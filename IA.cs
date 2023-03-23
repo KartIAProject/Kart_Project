@@ -6,6 +6,10 @@ public class IA{
 
    public const int NB_POP = 100;
 
+   public double ancienDist;
+
+   public int ancienMov;
+
 	private Individu[] population;
 
 	private class Individu{
@@ -52,6 +56,8 @@ public class IA{
 
 	public IA(){
 		this.population = new Individu[NB_POP];
+        this.ancienDist = 9999999999999999;
+        this.ancienMov = 2;
 		init();
 	}
 
@@ -61,19 +67,20 @@ public class IA{
 		}
 	}
 
-    public bool[] launch(Vector2 settings,int checkpass){
-        bool[] tab = train(settings,checkpass);
+    public bool[] launch(Vector2 settings,int checkpass,RayCast2D s1,RayCast2D s2,RayCast2D s3,Vector2 pos1, Vector2 pos2){
+        bool[] tab = train(settings,checkpass,s1,s2,s3,pos2,pos1);
         updateGeneration();
         return tab;
     }
 
 
-	public bool[] train(Vector2 settings,int nbCheckpoints){
+	public bool[] train(Vector2 settings,int nbCheckpoints,RayCast2D s1,RayCast2D s2,RayCast2D s3, Vector2 pos1, Vector2 pos2){
 		bool[] tab = new bool[4];
+        double dist = Math.Sqrt((pos1.x-settings.x)*(pos1.x-settings.x)+(pos1.y-settings.y)*(pos1.y-settings.y));
 		double speed = Math.Sqrt(settings.x*settings.x + settings.y*settings.y);
-		//GD.Print(speed);
-		tab[0] = false;
-		tab[2] = false; 
+        GD.Print(dist);
+        this.ancienDist = dist;
+        tab[ancienMov] = true;
 		return tab;
 	}
 
