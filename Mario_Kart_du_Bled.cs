@@ -90,8 +90,10 @@ public class Mario_Kart_du_Bled : Node2D
   public void _on_finish_line_body_entered(Node2D body)
   {
 	if(body.Name == "player"){
-		if((time < best_time) && (all_passed[0] && all_passed[1] && all_passed[2] && all_passed[3])){
-			best_time = time;
+		if((all_passed[0] && all_passed[1] && all_passed[2] && all_passed[3])){
+			if(best_time < time){
+				best_time = time;
+			}
 			time = 0F;
 			var msg = (GetNode<CanvasLayer>("HUD")).GetNode<Label>("time");
 	  		msg.Text = "TIME :"+time;
