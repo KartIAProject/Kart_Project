@@ -10,11 +10,17 @@ public class Mario_Kart_du_Bled : Node2D
     public float best_time = 999F;
     public int nb_checkpoint_passed = 0;
     public bool[] all_passed = {false, false, false, false};
+    
+  //  public Mario_Kart_du_Bled mario;
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        
+   //   mario = GetParent<Mario_Kart_du_Bled>();    
     }
+  
+  public int getNbCheckpoints(){
+    return nb_checkpoint_passed;
+  }
 
   // Called every frame. 'delta' is the elapsed time since the previous frame.
   public override void _Process(float delta)

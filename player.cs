@@ -16,9 +16,15 @@ public class player : RigidBody2D
 
     private IA Ia = new IA();
 
+    public override void _Ready()
+    {
+        Random rnd = new Random();
+        GetChild<Area2D>(4).Position = new Vector2(rnd.Next()%100,rnd.Next()%100);
+    }
     public override void _PhysicsProcess(float delta)
     {   
-        bool[] tab = Ia.launch(this.LinearVelocity);
+        int nbCheckpoints = GetParent<Mario_Kart_du_Bled>().getNbCheckpoints();
+        bool[] tab = Ia.launch(this.LinearVelocity,nbCheckpoints);
         input(tab);
     }
     

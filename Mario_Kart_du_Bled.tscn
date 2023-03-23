@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=35 format=2]
 
 [ext_resource path="res://player.cs" type="Script" id=1]
 [ext_resource path="res://racing_tileset.tres" type="TileSet" id=2]
@@ -10,6 +10,8 @@
 [ext_resource path="res://Mur_int.png" type="Texture" id=8]
 [ext_resource path="res://Mario_Kart_du_Bled.cs" type="Script" id=9]
 [ext_resource path="res://interface/fonts/kenvector_future_32.tres" type="DynamicFont" id=10]
+[ext_resource path="res://Cars/car_black_1.png" type="Texture" id=11]
+[ext_resource path="res://NeuroneAvant.cs" type="Script" id=12]
 
 [sub_resource type="TileSet" id=3]
 0/name = "Piste.png 0"
@@ -201,6 +203,9 @@ points = PoolVector2Array( 449.028, 746.771, 256.667, 746.771, 256.667, 672.465,
 radius = 31.0
 height = 58.0
 
+[sub_resource type="RectangleShape2D" id=34]
+extents = Vector2( 116.608, 113.035 )
+
 [sub_resource type="RectangleShape2D" id=24]
 extents = Vector2( 183.408, 8.11991 )
 
@@ -285,12 +290,22 @@ stream_paused = true
 [node name="Camera2D" type="Camera2D" parent="player"]
 current = true
 
+[node name="NeuroneAvant" type="Area2D" parent="player"]
+position = Vector2( 50, 50 )
+script = ExtResource( 12 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="player/NeuroneAvant"]
+position = Vector2( 106.606, -103.035 )
+shape = SubResource( 34 )
+
+[node name="Sprite" type="Sprite" parent="player/NeuroneAvant"]
+texture = ExtResource( 11 )
+
 [node name="checkpoint1" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="checkpoint1"]
 position = Vector2( 784.54, 2324.87 )
 rotation = -3.13478
-scale = Vector2( 1, 1 )
 shape = SubResource( 24 )
 
 [node name="HUD" type="CanvasLayer" parent="."]

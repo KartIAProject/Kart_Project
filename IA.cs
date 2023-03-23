@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections;
 
 public class IA{
 
@@ -10,16 +11,15 @@ public class IA{
     private class Individu{
 
      public const int NB_HEURISTIQUE = 4;
-
-        private double[] heuristique;
-        private double[] ponderation;
-        private double fitness;
+        public double[] heuristique;
+        public double[] ponderation;
+        public double fitness;
 
         public Individu(){
             this.heuristique = new double[NB_HEURISTIQUE];
             this.ponderation = new double[NB_HEURISTIQUE];
             init();
-            calculFitness();
+            //calculFitness();
         }
 
         public void init(){
@@ -61,18 +61,17 @@ public class IA{
         }
     }
 
-    public bool[] launch(Vector2 settings){
-        bool[] tab = train(settings);
+    public bool[] launch(Vector2 settings,int checkpass){
+        bool[] tab = train(settings,checkpass);
         updateGeneration();
         return tab;
     }
 
-    public bool[] train(Vector2 settings){
+    public bool[] train(Vector2 settings,int checkpass){
         bool[] tab = new bool[4];
         double speed = Math.Sqrt(settings.x*settings.x + settings.y*settings.y);
-        GD.Print(speed);
-        tab[0] = true;
-        tab[2] = true;
+        tab[0] =true;
+        tab[2] =true;
         return tab;
     }
 

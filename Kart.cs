@@ -11,8 +11,8 @@ public class Kart : KinematicBody2D
     //private Vector2 _velocity = Vector2.Zero;
     //private float _speed = 200f;
     
-    private const float MAX_SPEED = 200;
-    private const float ACCELERATION = 150;
+    private const float MAX_SPEED = 150;
+    private const float ACCELERATION = 50;
     private const float ROTATION_SPEED = 1f;
     private const float ROAD_RESISTANCE = 20f;
     
