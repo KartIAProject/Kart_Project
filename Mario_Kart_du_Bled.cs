@@ -91,7 +91,7 @@ public class Mario_Kart_du_Bled : Node2D
   {
 	if(body.Name == "player"){
 		if((all_passed[0] && all_passed[1] && all_passed[2] && all_passed[3])){
-			if(best_time < time){
+			if(time < best_time){
 				best_time = time;
 			}
 			time = 0F;
