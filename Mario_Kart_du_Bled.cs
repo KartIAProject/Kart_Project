@@ -107,6 +107,22 @@ public class Mario_Kart_du_Bled : Node2D
   }
 
 
+	// Changement vélocité Zone Lente 
+	public void _on_ZoneLente_body_entered(player body)
+	{
+		if(body.Name == "player"){
+			body.VelocityZL();
+		}
+	}
+
+	public void _on_ZoneLente_body_exited(player body)
+	{
+		if(body.Name == "player"){
+			body.VelocityInit();
+		}
+	}
+
+
 
 }
 

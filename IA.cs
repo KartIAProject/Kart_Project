@@ -81,8 +81,8 @@ public class IA{
 		bool[] tab = new bool[4];
 		double speed = Math.Sqrt(settings.x*settings.x + settings.y*settings.y);
 		GD.Print(speed);
-		tab[0] = false;
-		tab[2] = false;
+		tab[0] = false;  //false roule pas true roule
+		tab[2] = false;	 // Idem
 		return tab;
 	}
 >>>>>>> a0918bb5fd43bc42a27f859b49741eaaa8a4a934
