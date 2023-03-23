@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=2]
+[gd_scene load_steps=37 format=2]
 
 [ext_resource path="res://player.cs" type="Script" id=1]
 [ext_resource path="res://racing_tileset.tres" type="TileSet" id=2]
@@ -183,6 +183,12 @@ points = PoolVector2Array( 449.028, 746.771, 256.667, 746.771, 256.667, 672.465,
 } ]
 3/z_index = 0
 
+[sub_resource type="ConvexPolygonShape2D" id=34]
+points = PoolVector2Array( 237.878, 214.73, 277.905, 212.319, 277.423, 201.227, 500.224, 201.227, 500.224, 211.354, 547.967, 213.283, 553.754, 216.177, 554.718, 231.127, 551.343, 238.843, 551.343, 250.417, 560.427, 257.168, 507.379, 720.131, 494.841, 725.918, 489.536, 764.981, 488.089, 776.314, 444.204, 778.725, 444.204, 789.334, 202.113, 791.746, 202.113, 777.278, 163.533, 776.796, 162.568, 769.562, 200.666, 730.017, 192.95, 725.195, 194.879, 720.372, 390.192, 520.961, 361.257, 548.449, 397.425, 498.777, 381.511, 519.032, 395.496, 485.756, 392.121, 435.602, 383.922, 387.859, 388.263, 416.312, 365.597, 359.406, 372.831, 376.767, 320.747, 319.861, 263.841, 264.884, 268.664, 255.239 )
+
+[sub_resource type="ConvexPolygonShape2D" id=35]
+points = PoolVector2Array( 100, 169.167, 115, 170.833, 108.333, 192.5, 113.333, 275.833, 225, 394.167, 219.167, 409.167, 252.5, 447.5, 252.5, 469.167, 218.333, 509.167, 207.5, 515.833, 217.5, 528.333, 115.833, 630, 52.5, 695.833, 33.3333, 731.667, 32.5, 795.833, 49.1667, 857.5, 88.3333, 898.333, 116.667, 910, 517.5, 915, 561.667, 895.833, 599.167, 855, 622.5, 796.667, 651.667, 532.5, 695, 153.333, 679.167, 113.333, 630, 82.5, 564.167, 79.1667, 189.167, 78.3333, 144.167, 103.333, 127.5, 125.833, 113.333, 163.333, 104.167, 160.833, 104.167, 54.1667, 710, 55.8333, 710.833, 640, 663.333, 637.5, 662.5, 927.667, 25.8333, 929.333, 26.6667, 584.333, 102.5, 586 )
+
 [sub_resource type="TileSet" id=19]
 0/name = "Zone lente.png 0"
 0/texture = ExtResource( 7 )
@@ -194,17 +200,30 @@ points = PoolVector2Array( 449.028, 746.771, 256.667, 746.771, 256.667, 672.465,
 0/navigation_offset = Vector2( 0, 0 )
 0/shape_offset = Vector2( 0, 0 )
 0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+0/shape = SubResource( 34 )
 0/shape_one_way = false
-0/shape_one_way_margin = 0.0
-0/shapes = [  ]
+0/shape_one_way_margin = 1.0
+0/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 34 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 35 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
 0/z_index = 0
 
 [sub_resource type="CapsuleShape2D" id=2]
 radius = 31.0
 height = 58.0
 
-[sub_resource type="RectangleShape2D" id=34]
-extents = Vector2( 116.608, 113.035 )
+[sub_resource type="RectangleShape2D" id=36]
+extents = Vector2( 56.2499, 108.303 )
 
 [sub_resource type="RectangleShape2D" id=24]
 extents = Vector2( 183.408, 8.11991 )
@@ -252,9 +271,12 @@ tile_set = SubResource( 18 )
 format = 1
 tile_data = PoolIntArray( 851974, 3, 0 )
 
-[node name="ZoneLente" type="TileMap" parent="."]
+[node name="ZoneLente" type="Area2D" parent="."]
 scale = Vector2( 1.5, 1.5 )
+
+[node name="ZoneLente" type="TileMap" parent="ZoneLente"]
 tile_set = SubResource( 19 )
+collision_use_parent = true
 format = 1
 tile_data = PoolIntArray( 851974, 0, 0 )
 
@@ -268,9 +290,6 @@ contacts_reported = 4
 contact_monitor = true
 angular_damp = 10.0
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_group_": true
-}
 
 [node name="Sprite" type="Sprite" parent="player"]
 position = Vector2( 5.96046e-08, 6.10352e-05 )
@@ -287,7 +306,7 @@ stream = ExtResource( 3 )
 autoplay = true
 stream_paused = true
 
-[node name="Camera2D" type="Camera2D" parent="player"]
+[node name="Camera2D2" type="Camera2D" parent="player"]
 current = true
 
 [node name="NeuroneAvant" type="Area2D" parent="player"]
@@ -295,8 +314,8 @@ position = Vector2( 50, 50 )
 script = ExtResource( 12 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="player/NeuroneAvant"]
-position = Vector2( 106.606, -103.035 )
-shape = SubResource( 34 )
+position = Vector2( 0.891602, 10.7144 )
+shape = SubResource( 36 )
 
 [node name="Sprite" type="Sprite" parent="player/NeuroneAvant"]
 texture = ExtResource( 11 )
@@ -358,7 +377,8 @@ shape = SubResource( 32 )
 position = Vector2( 1489, 2139 )
 shape = SubResource( 33 )
 
-[connection signal="body_entered" from="player" to="player" method="_on_player_body_entered"]
+[connection signal="body_entered" from="ZoneLente" to="." method="_on_ZoneLente_body_entered"]
+[connection signal="body_exited" from="ZoneLente" to="." method="_on_ZoneLente_body_exited"]
 [connection signal="body_entered" from="checkpoint1" to="." method="_on_checkpoint1_body_entered"]
 [connection signal="body_entered" from="finish line" to="." method="_on_finish_line_body_entered"]
 [connection signal="body_entered" from="checkpoint2" to="." method="_on_checkpoint2_body_entered"]
