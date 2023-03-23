@@ -6,6 +6,7 @@ public class Mario_Kart_du_Bled : Node2D
 	  // Declare member variables here. Examples:
 	// private int a = 2;
 	// private string b = "text";
+	
 	public float time = 0F;
 	public float best_time = 999F;
 	public int nb_checkpoint_passed = 0;
@@ -85,5 +86,23 @@ public class Mario_Kart_du_Bled : Node2D
 		msg2.Show();
 	}
   }
+
+	// Changement vélocité Zone Lente 
+	public void _on_ZoneLente_body_entered(player body)
+	{
+		if(body.Name == "player"){
+			body.VelocityZL();
+		}
+	}
+
+	public void _on_ZoneLente_body_exited(player body)
+	{
+		if(body.Name == "player"){
+			body.VelocityInit();
+		}
+	}
+
 }
+
+
 

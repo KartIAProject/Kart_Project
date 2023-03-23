@@ -15,6 +15,18 @@ public class player : RigidBody2D
 	public float DRIFT_STEERING=600.0F;
 
 	private IA Ia = new IA();
+	
+	private float AccelerationInit, AccelerationZL;
+
+	public player()
+		{
+			//Variables cgt vitesse zone lente
+			AccelerationInit = ACCELERATION;
+			AccelerationZL = (ACCELERATION)/5;
+			//
+			
+		}
+		
 
 	public override void _PhysicsProcess(float delta)
 	{   
@@ -43,4 +55,19 @@ public class player : RigidBody2D
 		}
 		
 	}
+	
+	// Variables et Fonctions pour le changement de vitesse en zone lente
+		
+	public void VelocityZL()
+	{
+				ACCELERATION = AccelerationZL;
+	}
+	
+	public void VelocityInit()
+	{
+		ACCELERATION = AccelerationInit;
+	}
+	
+	
+	
 }

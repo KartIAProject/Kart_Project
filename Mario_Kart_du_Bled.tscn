@@ -363,7 +363,8 @@ shape = SubResource( 32 )
 position = Vector2( 1489, 2139 )
 shape = SubResource( 33 )
 
-[connection signal="body_entered" from="player" to="player" method="_on_player_body_entered"]
+[connection signal="body_entered" from="ZoneLente" to="." method="_on_ZoneLente_body_entered"]
+[connection signal="body_exited" from="ZoneLente" to="." method="_on_ZoneLente_body_exited"]
 [connection signal="body_entered" from="checkpoint1" to="." method="_on_checkpoint1_body_entered"]
 [connection signal="body_entered" from="finish line" to="." method="_on_finish_line_body_entered"]
 [connection signal="body_entered" from="checkpoint2" to="." method="_on_checkpoint2_body_entered"]
