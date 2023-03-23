@@ -19,6 +19,13 @@ public class Mario_Kart_du_Bled : Node2D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		var scene = ResourceLoader.Load<PackedScene>("res://voiture.tscn");
+		for(uint i = 2; i<6; i++){
+			RigidBody2D instance = scene.Instance<RigidBody2D>();
+			instance.CollisionLayer = i;
+			instance.CollisionMask = i;
+			AddChild(instance);
+		}
 		
 	}
 
