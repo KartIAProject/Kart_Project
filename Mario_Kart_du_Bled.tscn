@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=2]
+[gd_scene load_steps=34 format=2]
 
 [ext_resource path="res://player.cs" type="Script" id=1]
 [ext_resource path="res://racing_tileset.tres" type="TileSet" id=2]
@@ -10,8 +10,6 @@
 [ext_resource path="res://Mur_int.png" type="Texture" id=8]
 [ext_resource path="res://Mario_Kart_du_Bled.cs" type="Script" id=9]
 [ext_resource path="res://interface/fonts/kenvector_future_32.tres" type="DynamicFont" id=10]
-[ext_resource path="res://Cars/car_black_1.png" type="Texture" id=11]
-[ext_resource path="res://NeuroneAvant.cs" type="Script" id=12]
 
 [sub_resource type="TileSet" id=3]
 0/name = "Piste.png 0"
@@ -222,9 +220,6 @@ points = PoolVector2Array( 100, 169.167, 115, 170.833, 108.333, 192.5, 113.333, 
 radius = 31.0
 height = 58.0
 
-[sub_resource type="RectangleShape2D" id=36]
-extents = Vector2( 56.2499, 108.303 )
-
 [sub_resource type="RectangleShape2D" id=24]
 extents = Vector2( 183.408, 8.11991 )
 
@@ -259,12 +254,6 @@ tile_set = SubResource( 3 )
 format = 1
 tile_data = PoolIntArray( 851974, 0, 0 )
 
-[node name="Mur externe" type="TileMap" parent="."]
-scale = Vector2( 1.5, 1.5 )
-tile_set = SubResource( 18 )
-format = 1
-tile_data = PoolIntArray( 851974, 2, 0 )
-
 [node name="Mur Interne" type="TileMap" parent="."]
 scale = Vector2( 1.5, 1.5 )
 tile_set = SubResource( 18 )
@@ -296,11 +285,6 @@ position = Vector2( 5.96046e-08, 6.10352e-05 )
 scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 4 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="player"]
-position = Vector2( -1, 0 )
-scale = Vector2( 0.5, 0.5 )
-shape = SubResource( 2 )
-
 [node name="skid" type="AudioStreamPlayer" parent="player"]
 stream = ExtResource( 3 )
 autoplay = true
@@ -309,16 +293,27 @@ stream_paused = true
 [node name="Camera2D2" type="Camera2D" parent="player"]
 current = true
 
-[node name="NeuroneAvant" type="Area2D" parent="player"]
-position = Vector2( 50, 50 )
-script = ExtResource( 12 )
+[node name="CollisionShape2D" type="CollisionShape2D" parent="player"]
+position = Vector2( -1.00049, 0 )
+scale = Vector2( 0.5, 0.5 )
+shape = SubResource( 2 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="player/NeuroneAvant"]
-position = Vector2( 0.891602, 10.7144 )
-shape = SubResource( 36 )
+[node name="sensors" type="Node2D" parent="player"]
 
-[node name="Sprite" type="Sprite" parent="player/NeuroneAvant"]
-texture = ExtResource( 11 )
+[node name="s1" type="RayCast2D" parent="player/sensors"]
+position = Vector2( -1.78613, -33.9287 )
+rotation = 3.14159
+cast_to = Vector2( 0, 100 )
+
+[node name="s2" type="RayCast2D" parent="player/sensors"]
+position = Vector2( -12.5, -28.5715 )
+rotation = 2.35619
+cast_to = Vector2( 0, 100 )
+
+[node name="s3" type="RayCast2D" parent="player/sensors"]
+position = Vector2( 12.5, -28.5713 )
+rotation = 3.92699
+cast_to = Vector2( 0, 100 )
 
 [node name="checkpoint1" type="Area2D" parent="."]
 
@@ -376,6 +371,12 @@ shape = SubResource( 32 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="checkpoint4"]
 position = Vector2( 1489, 2139 )
 shape = SubResource( 33 )
+
+[node name="Mur externe" type="TileMap" parent="."]
+scale = Vector2( 1.5, 1.5 )
+tile_set = SubResource( 18 )
+format = 1
+tile_data = PoolIntArray( 851974, 2, 0 )
 
 [connection signal="body_entered" from="ZoneLente" to="." method="_on_ZoneLente_body_entered"]
 [connection signal="body_exited" from="ZoneLente" to="." method="_on_ZoneLente_body_exited"]

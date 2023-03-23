@@ -18,6 +18,10 @@ public class player : RigidBody2D
 	
 	private float AccelerationInit, AccelerationZL;
 
+    private RayCast2D s1;
+    private RayCast2D s2;
+    private RayCast2D s3;
+
 	public player()
 		{
 			//Variables cgt vitesse zone lente
@@ -30,10 +34,20 @@ public class player : RigidBody2D
         public override void _Ready()
     {
         Random rnd = new Random();
-        GetChild<Area2D>(4).Position = new Vector2(rnd.Next()%100,rnd.Next()%100);
+        int pos1 = rnd.Next()%100;
+        int pos2 = rnd.Next()%100;
+        s1 = GetNode<RayCast2D>("/root/Mario_Kart_du_Bled/player/sensors/s1");
+        s1.Position = new Vector2(pos1,pos2);
+        s2 = GetNode<RayCast2D>("/root/Mario_Kart_du_Bled/player/sensors/s2");
+        s3 = GetNode<RayCast2D>("/root/Mario_Kart_du_Bled/player/sensors/s3");
+        //GetChild<Area2D>(4).GetChild<CollisionShape2D>(0).Position = new Vector2(pos1,pos2);
     }
     public override void _PhysicsProcess(float delta)
     {   
+        s1.ForceRaycastUpdate();
+        s2.ForceRaycastUpdate();
+        s3.ForceRaycastUpdate();
+        
         int nbCheckpoints = GetParent<Mario_Kart_du_Bled>().getNbCheckpoints();
         bool[] tab = Ia.launch(this.LinearVelocity,nbCheckpoints);
 		input(tab);
