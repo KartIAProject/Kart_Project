@@ -3,14 +3,14 @@ using System;
 
 public class Mario_Kart_du_Bled : Node2D
 {
-<<<<<<< HEAD
-	  // Declare member variables here. Examples:
+
+	// Declare member variables here. Examples:
 	// private int a = 2;
 	// private string b = "text";
 	
-=======
-	  // Member variables
->>>>>>> a0918bb5fd43bc42a27f859b49741eaaa8a4a934
+
+	// Member variables
+
 	public float time = 0F;
 	public float best_time = 999F;
 	public int nb_checkpoint_passed = 0;

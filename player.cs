@@ -60,7 +60,7 @@ public class player : RigidBody2D
 		
 	public void VelocityZL()
 	{
-				ACCELERATION = AccelerationZL;
+		ACCELERATION = AccelerationZL;
 	}
 	
 	public void VelocityInit()
