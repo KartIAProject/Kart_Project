@@ -71,8 +71,8 @@ public class IA{
         bool[] tab = new bool[4];
         double speed = Math.Sqrt(settings.x*settings.x + settings.y*settings.y);
         GD.Print(speed);
-        tab[0] = true;
-        tab[2] = true;
+        tab[0] = false;
+        tab[2] = false;
         return tab;
     }
 
