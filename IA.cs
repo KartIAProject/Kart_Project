@@ -71,7 +71,7 @@ public class IA{
 	public bool[] train(Vector2 settings,int nbCheckpoints){
 		bool[] tab = new bool[4];
 		double speed = Math.Sqrt(settings.x*settings.x + settings.y*settings.y);
-		GD.Print(speed);
+		//GD.Print(speed);
 		tab[0] = false;
 		tab[2] = false; 
 		return tab;

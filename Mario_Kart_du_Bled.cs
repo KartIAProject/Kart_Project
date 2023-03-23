@@ -116,7 +116,7 @@ public class Mario_Kart_du_Bled : Node2D
 	{
 		if(body.Name == "player"){
 			body.VelocityZL();
-		}
+    }
 	}
 
 	public void _on_ZoneLente_body_exited(player body)
@@ -125,8 +125,6 @@ public class Mario_Kart_du_Bled : Node2D
 			body.VelocityInit();
 		}
 	}
-
-
 
 }
 
