@@ -3,14 +3,19 @@ using System;
 
 public class Mario_Kart_du_Bled : Node2D
 {
+<<<<<<< HEAD
 	  // Declare member variables here. Examples:
 	// private int a = 2;
 	// private string b = "text";
 	
+=======
+	  // Member variables
+>>>>>>> a0918bb5fd43bc42a27f859b49741eaaa8a4a934
 	public float time = 0F;
 	public float best_time = 999F;
 	public int nb_checkpoint_passed = 0;
 	public bool[] all_passed = {false, false, false, false};
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -18,6 +23,7 @@ public class Mario_Kart_du_Bled : Node2D
 	}
 
   // Called every frame. 'delta' is the elapsed time since the previous frame.
+  // Each checkpoint (Area2D objects) must be passd trought at least once before the finish line allow the best time to be displayed
   public override void _Process(float delta)
   {
 	  time+=delta;
@@ -75,32 +81,32 @@ public class Mario_Kart_du_Bled : Node2D
 	}
   }
 
+// the finish line displays the best time on the car entering it's collider, ony if the lap was done "correctly".
+// it also reinitialize the timer and allows to run another lap by reinitializing the all_passed array.
   public void _on_finish_line_body_entered(Node2D body)
   {
 	if(body.Name == "player"){
 		if((time < best_time) && (all_passed[0] && all_passed[1] && all_passed[2] && all_passed[3])){
 			best_time = time;
+			time = 0F;
+			var msg = (GetNode<CanvasLayer>("HUD")).GetNode<Label>("time");
+	  		msg.Text = "TIME :"+time;
+	  		msg.Show();
 		}
 		var msg2 = (GetNode<CanvasLayer>("HUD")).GetNode<Label>("best");
 		msg2.Text = "BEST :"+best_time;
 		msg2.Show();
+		nb_checkpoint_passed = 0;
+		msg2 = (GetNode<CanvasLayer>("HUD")).GetNode<Label>("nbcp");
+		msg2.Text = "CHECKPOINT PASSED :"+nb_checkpoint_passed;
+		msg2.Show();
+		for(int i = 0; i<4; i++){
+			all_passed[i] = false;
+		}
 	}
   }
 
-	// Changement vélocité Zone Lente 
-	public void _on_ZoneLente_body_entered(player body)
-	{
-		if(body.Name == "player"){
-			body.VelocityZL();
-		}
-	}
 
-	public void _on_ZoneLente_body_exited(player body)
-	{
-		if(body.Name == "player"){
-			body.VelocityInit();
-		}
-	}
 
 }
 

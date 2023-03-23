@@ -67,14 +67,25 @@ public class IA{
 		return tab;
 	}
 
+<<<<<<< HEAD
 	public bool[] train(Vector2 settings){
 		bool[] tab = new bool[4];
 		double speed = Math.Sqrt(settings.x*settings.x + settings.y*settings.y);
 		GD.Print(speed);
-		tab[0] = false; //true ça roule false non
-		tab[2] = false; //true ça roule false non
+		tab[0] = false;
+		tab[2] = false; 
 		return tab;
 	}
+=======
+	public bool[] train(Vector2 settings){
+		bool[] tab = new bool[4];
+		double speed = Math.Sqrt(settings.x*settings.x + settings.y*settings.y);
+		GD.Print(speed);
+		tab[0] = false;
+		tab[2] = false;
+		return tab;
+	}
+>>>>>>> a0918bb5fd43bc42a27f859b49741eaaa8a4a934
 
 	public void updateGeneration(){
 		return;
