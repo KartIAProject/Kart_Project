@@ -49,7 +49,14 @@ public class player : RigidBody2D
         CollisionShape2D cs2 = GetNode<Area2D>("/root/Mario_Kart_du_Bled/checkpoint1").GetChild<CollisionShape2D>(0);
 
         int nbCheckpoints = GetParent<Mario_Kart_du_Bled>().getNbCheckpoints();
-        bool[] tab = Ia.launch(this.LinearVelocity,0,s1,s2,s3,cs1.Position,cs2.Position);
+		float time = GetParent<Mario_Kart_du_Bled>().getTime();
+
+		if(nbCheckpoints >= 1){
+			GetParent<Mario_Kart_du_Bled>().setNbCheckpoints(0);
+			this.Position = new Vector2(1232,2517);
+		}
+
+        bool[] tab = Ia.launch(GetParent<Mario_Kart_du_Bled>(),this.LinearVelocity,nbCheckpoints,s1,s2,s3,cs1.Position,cs2.Position,time);
 		input(tab);
     }
 	

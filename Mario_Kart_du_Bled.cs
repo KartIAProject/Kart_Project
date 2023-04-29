@@ -22,8 +22,20 @@ public class Mario_Kart_du_Bled : Node2D
 		
 	}
 
+public float getTime(){
+	return time;
+}
+
+	public void setAll_Passed(bool[] tab){
+		all_passed = tab;
+	}
+
   public int getNbCheckpoints(){
     return nb_checkpoint_passed;
+  }
+
+public void setNbCheckpoints(int c){
+    nb_checkpoint_passed = c;
   }
 
   // Called every frame. 'delta' is the elapsed time since the previous frame.
