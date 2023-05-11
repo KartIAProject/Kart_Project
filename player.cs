@@ -1,13 +1,7 @@
 using Godot;
 using System;
-/*using SharpNeat.Core;
-using SharpNeat.DistanceMetrics;
-using SharpNeat.EvolutionAlgorithms;
-using SharpNeat.Genomes.Neat;
-using SharpNeat.Phenomes;
-using SharpNeat.Decoders;
-using SharpNeat.Decoders.Neat;
-using SharpNeat.SpeciationStrategies;*/
+using System.Collections.Generic;
+using System.Linq;
 
 
 public class player : RigidBody2D
@@ -38,7 +32,15 @@ public class player : RigidBody2D
 	private RayCast2D s8;
 
 	public int actualCheckpoint;
+	public int actualIndexIndividu;
+
+	public int actualIndexOfIndividu;
+
+	public List<string> actualIndividu;
+
 	private CollisionShape2D[] checkpointTab;
+
+	private Population pop;
 
 	public player()
 		{
@@ -71,6 +73,15 @@ public class player : RigidBody2D
 
 		actualCheckpoint = 0;
 
+		actualIndexIndividu = 0;
+
+		actualIndexOfIndividu = 0;
+
+		actualIndividu = new List<string>();
+
+		pop = new Population(10,500,1,2);
+		pop.generatePopulation();
+
 		/*var neatGenomeFactory = new NeatGenomeFactory(12, 4);
 		var genomeList = neatGenomeFactory.CreateGenomeList(100, 0);
 
@@ -97,7 +108,7 @@ public class player : RigidBody2D
 				(genomeDecoder, phenomeEvaluator);
 
 		network.Initialize(genomeListEvaluator, neatGenomeFactory, genomeList);*/
-		Ia2.init();
+		//Ia2.init();
     }
     public override void _PhysicsProcess(float delta)
     {   
@@ -138,11 +149,39 @@ public class player : RigidBody2D
 
     	// prendre une décision avec le réseau de neurones
 
+		if(actualIndexOfIndividu == 0){
+			actualIndividu = pop.getIndividu(actualIndexIndividu);
+		}
+		if(actualIndexOfIndividu == 500){
+			actualIndexOfIndividu = 0;
+			actualIndexIndividu++;
+		}
+		if(actualIndexIndividu == 10){
+			pop.evoluate();
+			actualIndexOfIndividu = 0;
+			actualIndexIndividu = 0;
+		}
+
+		bool[] tab = stringArrayToBool(actualIndividu[actualIndexIndividu]);
+		actualIndexIndividu++;
+
     	//bool[] keysPressed = launch(inputs,checkpointTab[nbCheckpoints]);
 		//GD.Print(nbCheckpoints);
-		bool[] tab = Ia2.launch(this.Position,this.LinearVelocity,sens,checkpointTab[nbCheckpoints],time);
+		//bool[] tab = Ia2.launch(this.Position,this.LinearVelocity,sens,checkpointTab[nbCheckpoints],time);
 		input(tab);
     }
+
+	public bool[] stringArrayToBool(string direction){
+		
+		bool[] res = new bool[4];
+		
+		if(direction.Equals("t")) res[2] = true;
+		else if(direction.Equals("d")) res[3] = true;
+		else if(direction.Equals("r")) res[1] = true;
+		else if(direction.Equals("l")) res[0] = true;
+
+		return res;
+	}
 
 	public bool[] launch(float[] inputs, CollisionShape2D checkpoint){
 	
