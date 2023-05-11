@@ -149,21 +149,31 @@ public class player : RigidBody2D
 
     	// prendre une décision avec le réseau de neurones
 
-		if(actualIndexOfIndividu == 0){
-			actualIndividu = pop.getIndividu(actualIndexIndividu);
-		}
-		if(actualIndexOfIndividu == 500){
-			actualIndexOfIndividu = 0;
-			actualIndexIndividu++;
-		}
 		if(actualIndexIndividu == 10){
+			GD.Print("[+] New Population");
 			pop.evoluate();
 			actualIndexOfIndividu = 0;
 			actualIndexIndividu = 0;
 		}
+		if(actualIndexOfIndividu == 0){
+			actualIndividu = pop.getIndividu(actualIndexIndividu);
+		}
 
-		bool[] tab = stringArrayToBool(actualIndividu[actualIndexIndividu]);
-		actualIndexIndividu++;
+		bool[] tab = stringArrayToBool(actualIndividu[actualIndexOfIndividu]);
+		actualIndexOfIndividu++;
+
+		if(actualIndexOfIndividu == 500){
+			pop.calculateFitness(actualIndexIndividu,nbCheckpoints);
+			bool[] temp = new bool[4];
+			for(int k=0; k<4; k++){temp[k] = false;}
+			GetParent<Mario_Kart_du_Bled>().setAll_Passed(temp);
+			GetParent<Mario_Kart_du_Bled>().setNbCheckpoints(0);
+			actualIndexOfIndividu = 0;
+			GD.Print("[+] New Individu");
+			actualIndexIndividu++;
+			this.Position = new Vector2(1232,2517);
+			this.RotationDegrees = -90;
+		}
 
     	//bool[] keysPressed = launch(inputs,checkpointTab[nbCheckpoints]);
 		//GD.Print(nbCheckpoints);

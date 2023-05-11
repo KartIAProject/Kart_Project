@@ -33,13 +33,14 @@ class Population{
         this.nbCycleMax = nbCycleMax;
         this.tailleGroupe = tailleGroupe;
         this.individusArray = new string[taillePopulation,tailleIndividu];
+        this.fitness = new double[taillePopulation];
     }
 
     public void generatePopulation(){
-        Random rnd = new Random();
         for(int i=0; i<taillePopulation; i++){
             for(int j=0; j<tailleIndividu; j++){
-                individusArray[i,j] = functionsArray[rnd.Next(functionsArray.Length)];
+                Random rnd = new Random();
+                individusArray[i,j] = functionsArray[rnd.Next(functionsArray.Length-1)];
             }
         }
     }
@@ -61,66 +62,76 @@ class Population{
 
     }
 
-    public (string[],string[]) generateNewIndividu(){
-
+    public (string[], string[]) generateNewIndividu()
+    {
         Random rnd = new Random();
 
-        Dictionary<double, string[]> selectedIndividus1 = new Dictionary<double, string[]>();
-        Dictionary<double, string[]> selectedIndividus2 = new Dictionary<double, string[]>();
+        Dictionary<string[], double> selectedIndividus1 = new Dictionary<string[], double>();
+        Dictionary<string[], double> selectedIndividus2 = new Dictionary<string[], double>();
 
-        for (int i = 0; i < tailleGroupe; i++){
-            int nombreAleatoire1 = rnd.Next(0, tailleIndividu-1);
-            int nombreAleatoire2 = rnd.Next(0, tailleIndividu-1);
+        for (int i = 0; i < tailleGroupe; i++)
+        {
+            int nombreAleatoire1 = rnd.Next(0, taillePopulation - 1);
+            int nombreAleatoire2 = rnd.Next(0, taillePopulation - 1);
             string[] tmp1 = new string[tailleIndividu];
-            for(int j = 0; j<tailleIndividu; j++){
-                tmp1[j] = individusArray[nombreAleatoire1,j];
+            for (int j = 0; j < tailleIndividu; j++)
+            {
+                tmp1[j] = individusArray[nombreAleatoire1, j];
             }
             string[] tmp2 = new string[tailleIndividu];
-            for(int j = 0; j<tailleIndividu; j++){
-                tmp2[j] = individusArray[nombreAleatoire2,j];
+            for (int j = 0; j < tailleIndividu; j++)
+            {
+                tmp2[j] = individusArray[nombreAleatoire2, j];
             }
-            selectedIndividus1.Add(fitness[nombreAleatoire1],tmp1);
-            selectedIndividus1.Add(fitness[nombreAleatoire1],tmp2);
+
+            selectedIndividus1.Add(tmp1, fitness[nombreAleatoire1]);
+            selectedIndividus2.Add(tmp2, fitness[nombreAleatoire2]);
         }
 
-        KeyValuePair<double,string[]> bestIndividu1 = selectedIndividus1.OrderByDescending(x => x.Key).ToDictionary(x => x.Key, x => x.Value).First();
-        KeyValuePair<double,string[]> bestIndividu2 = selectedIndividus1.OrderByDescending(x => x.Key).ToDictionary(x => x.Key, x => x.Value).First();
+        KeyValuePair<string[], double> bestIndividu1 = selectedIndividus1.OrderByDescending(x => x.Value).First();
+        KeyValuePair<string[], double> bestIndividu2 = selectedIndividus2.OrderByDescending(x => x.Value).First();
 
-        int sectionNumber = rnd.Next(functionsArray.Length-1);
+        int sectionNumber = rnd.Next(functionsArray.Length - 1);
 
         string[] newIndividu1 = new string[tailleIndividu];
         string[] newIndividu2 = new string[tailleIndividu];
 
-        for(int i=0; i<sectionNumber; i++){
-            newIndividu1[i] = bestIndividu1.Value[i];
-            newIndividu2[i] = bestIndividu2.Value[i];
+        for (int i = 0; i < sectionNumber; i++)
+        {
+            newIndividu1[i] = bestIndividu1.Key[i];
+            newIndividu2[i] = bestIndividu2.Key[i];
         }
 
-        for(int i=sectionNumber; i<tailleIndividu; i++){
-            newIndividu1[i] = bestIndividu2.Value[i];
-            newIndividu2[i] = bestIndividu1.Value[i];
+        for (int i = sectionNumber; i < tailleIndividu; i++)
+        {
+            newIndividu1[i] = bestIndividu2.Key[i];
+            newIndividu2[i] = bestIndividu1.Key[i];
         }
 
         // TODO: Mutation
 
-        return (newIndividu1,newIndividu2);
-
+        return (newIndividu1, newIndividu2);
     }
 
     public void evoluate(){
 
         string[,] newIndividusArray = new string[taillePopulation,tailleIndividu];
         
+        string tmp = "";
         // On ajoute le meilleur Individu 
         for(int i=0; i<tailleIndividu; i++){
             newIndividusArray[0,i] = individusArray[0,i];
+            newIndividusArray[9,i] = individusArray[0,i];
+            tmp += newIndividusArray[0,i] + ",";
         }
 
-        for(int i=1; i<Convert.ToInt32((taillePopulation/2)+1); i+=2){
+        GD.Print("[+] Best Individu : ["+tmp+"]");
+
+        for(int i=1; i<Convert.ToInt32((taillePopulation))-1; i+=2){
             string[] individu1;
             string[] individu2;
             (individu1, individu2) = this.generateNewIndividu();
-            for(int j=0; i<tailleIndividu; j++){
+            for(int j=0; j<tailleIndividu; j++){
                 newIndividusArray[i,j] = individu1[j];
                 newIndividusArray[i+1,j] = individu2[j];
             }
@@ -138,7 +149,7 @@ class Population{
 
         List<string> res = new List<string>();
 
-        for(int i=0; i<functionsArray.Length; i++){
+        for(int i=0; i<func.Length; i++){
             string tmp = func[i];
             int value = (int)Char.GetNumericValue(tmp[0]);
             string direction = tmp[1] + "";
@@ -151,9 +162,10 @@ class Population{
 
     }
 
-    public void calculateFitness(int index){
+    public void calculateFitness(int index, int nbCheckpoints){
+        Random rnd = new Random();
         // TODO
-        fitness[index] = 2;      // Temporaire  
+        fitness[index] = nbCheckpoints;      // Temporaire  
     }
 
     public List<string> getIndividu(int index){
@@ -161,7 +173,7 @@ class Population{
         string[] tmp = new string[tailleIndividu];
 
         for(int i=0; i<tailleIndividu; i++){
-            tmp[i] = individusArray[index,i]; // OOB mais jsp pq
+            tmp[i] = individusArray[index,i];
         }
 
         return functionsArrayToArrayString(tmp);
