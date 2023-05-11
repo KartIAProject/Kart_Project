@@ -2,4 +2,18 @@
   <PropertyGroup>
     <TargetFramework>net472</TargetFramework>
   </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="NeuronDotNet" Version="3.0.0" />
+    <PackageReference Include="NeuronDotNet.Core45" Version="3.0.0.1" />
+    <PackageReference Include="SharpNeatLib" Version="2.4.4" />
+    <PackageReference Include="TensorFlowSharp" Version="1.15.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="SharpNeat">
+      <HintPath>..\..\.nuget\packages\sharpneat\4.0.0\lib\net7.0\SharpNeat.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpNeatLib">
+      <HintPath>SharpNeatLib.dll</HintPath>
+    </Reference>
+  </ItemGroup>
 </Project>

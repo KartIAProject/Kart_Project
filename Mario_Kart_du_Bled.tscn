@@ -301,16 +301,43 @@ shape = SubResource( 2 )
 [node name="sensors" type="Node2D" parent="player"]
 
 [node name="s1" type="RayCast2D" parent="player/sensors"]
-position = Vector2( -1.78613, -33.9287 )
+position = Vector2( 0, -30 )
 rotation = 3.14159
+cast_to = Vector2( 0, 2000 )
 
 [node name="s2" type="RayCast2D" parent="player/sensors"]
-position = Vector2( -12.5, -28.5715 )
+position = Vector2( -15, -30 )
 rotation = 2.35619
+cast_to = Vector2( 0, 2000 )
 
 [node name="s3" type="RayCast2D" parent="player/sensors"]
-position = Vector2( 12.5, -28.5713 )
+position = Vector2( 15, -30 )
 rotation = 3.92699
+cast_to = Vector2( 0, 2000 )
+
+[node name="s4" type="RayCast2D" parent="player/sensors"]
+position = Vector2( -15, 0 )
+rotation = 1.57079
+cast_to = Vector2( 0, 2000 )
+
+[node name="s5" type="RayCast2D" parent="player/sensors"]
+position = Vector2( -15, 30 )
+rotation = 0.785398
+cast_to = Vector2( 0, 2000 )
+
+[node name="s6" type="RayCast2D" parent="player/sensors"]
+position = Vector2( 0, 30 )
+cast_to = Vector2( 0, 2000 )
+
+[node name="s7" type="RayCast2D" parent="player/sensors"]
+position = Vector2( 15, 0 )
+rotation = 4.71239
+cast_to = Vector2( 0, 2000 )
+
+[node name="s8" type="RayCast2D" parent="player/sensors"]
+position = Vector2( 15, 30 )
+rotation = -0.785398
+cast_to = Vector2( 0, 2000 )
 
 [node name="checkpoint1" type="Area2D" parent="."]
 

@@ -74,13 +74,18 @@ public class IA{
 		}
 	}
 
-    public bool[] launch(Mario_Kart_du_Bled mario, Vector2 settings,int checkpass,RayCast2D s1,RayCast2D s2,RayCast2D s3,Vector2 pos1, Vector2 pos2, float time){
-        bool[] tab = train(mario,settings,checkpass,s1,s2,s3,pos2,pos1,time);
-        return tab;
+    public bool[] launch(RigidBody2D player,Mario_Kart_du_Bled mario, Vector2 settings,int checkpass,RayCast2D s1,RayCast2D s2,RayCast2D s3,Vector2 pos1, Vector2 pos2, float time){
+        //bool[] tab = train(mario,settings,checkpass,s1,s2,s3,pos2,pos1,time);
+		Vector2 collisionPos = s1.GetCollisionPoint();
+		float distance = collisionPos.DistanceTo(player.Position);
+		GD.Print(distance);
+        bool [] tab = {false,false,false,false};
+		return tab;
     }
 
 
 	public bool[] train(Mario_Kart_du_Bled mario,Vector2 settings,int nbCheckpoints,RayCast2D s1,RayCast2D s2,RayCast2D s3, Vector2 pos1, Vector2 pos2, float time){
+		GD.Print(s1.GetCollisionPoint());
 		Random rnd = new Random();
 		bool[] tab = new bool[4];
 		if(nbCheckpoints >= 1){
