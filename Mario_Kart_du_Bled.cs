@@ -157,7 +157,7 @@ public int getNbCheckpoints(){
 		for(int i = 0; i<all_passed.Length; i++){
 			all_passed[i] = false;
 		}
-		nb_checkpoint_passed = 0F;
+		nb_checkpoint_passed = 0;
 		var msg2 = (GetNode<CanvasLayer>("HUD")).GetNode<Label>("nbcp");
 		msg2.Text = "CHECKPOINT PASSED :"+nb_checkpoint_passed;
 		msg2.Show();
