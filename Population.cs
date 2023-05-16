@@ -45,6 +45,15 @@ class Population{
         }
     }
 
+    public string[] generateIndividu(){
+        string[] tmp = new string[tailleIndividu];
+        for(int i=0; i<tailleIndividu; i++){
+                Random rnd = new Random();
+                tmp[i] = functionsArray[rnd.Next(functionsArray.Length-1)];
+        }
+        return tmp;
+    }
+
     public void sortPopulation(){
         
         Dictionary<double, string[]> array = new Dictionary<double, string[]>();
@@ -59,6 +68,16 @@ class Population{
 
         // On trie le tableau pour avoir les meilleurs individus au début
         Dictionary<double, string[]> sortArray  = array.OrderByDescending(x => x.Key).ToDictionary(x => x.Key, x => x.Value);
+
+        GD.Print("[+] Best score : "+ fitness.Max());
+
+        foreach (string[] value in sortArray.Values){
+            for(int i=0; i<individusArray.Length; i++){
+                for(int j=0; j<tailleIndividu; j++){
+                    individusArray[i,j] = value[j];
+                }
+            }
+        }
 
     }
 
@@ -92,6 +111,13 @@ class Population{
         KeyValuePair<string[], double> bestIndividu2 = selectedIndividus2.OrderByDescending(x => x.Value).First();
 
         int sectionNumber = rnd.Next(functionsArray.Length - 1);
+        int sectionNumber2 = rnd.Next(functionsArray.Length - 1);
+
+        if(sectionNumber > sectionNumber2){
+            int tmp = sectionNumber;
+            sectionNumber2 = sectionNumber;
+            sectionNumber = tmp;
+        }
 
         string[] newIndividu1 = new string[tailleIndividu];
         string[] newIndividu2 = new string[tailleIndividu];
@@ -102,13 +128,28 @@ class Population{
             newIndividu2[i] = bestIndividu2.Key[i];
         }
 
-        for (int i = sectionNumber; i < tailleIndividu; i++)
+        for (int i = sectionNumber; i < sectionNumber2; i++)
         {
             newIndividu1[i] = bestIndividu2.Key[i];
             newIndividu2[i] = bestIndividu1.Key[i];
         }
 
+        for (int i = sectionNumber2; i < tailleIndividu; i++)
+        {
+            newIndividu1[i] = bestIndividu1.Key[i];
+            newIndividu2[i] = bestIndividu2.Key[i];
+        }
+
         // TODO: Mutation
+        int nbMutations = (tailleIndividu/10) - rnd.Next(400);
+        int tauxMutation = 5;
+
+        if(rnd.Next(10) > tauxMutation){
+            for(int i=0; i<nbMutations; i++){
+                newIndividu1[rnd.Next(tailleIndividu-1)] = functionsArray[rnd.Next(functionsArray.Length-1)];
+                newIndividu2[rnd.Next(tailleIndividu-1)] = functionsArray[rnd.Next(functionsArray.Length-1)];
+            }
+        }
 
         return (newIndividu1, newIndividu2);
     }
@@ -121,7 +162,7 @@ class Population{
         // On ajoute le meilleur Individu 
         for(int i=0; i<tailleIndividu; i++){
             newIndividusArray[0,i] = individusArray[0,i];
-            newIndividusArray[9,i] = individusArray[0,i];
+            newIndividusArray[49,i] = individusArray[0,i];
             tmp += newIndividusArray[0,i] + ",";
         }
 
@@ -162,10 +203,14 @@ class Population{
 
     }
 
-    public void calculateFitness(int index, int nbCheckpoints){
+    public void calculateFitness(int index, double[] attr, int[] weight){
         Random rnd = new Random();
-        // TODO
-        fitness[index] = nbCheckpoints;      // Temporaire  
+        double tmp = 0;
+        for(int i=0; i<attr.Length; i++){
+            tmp += attr[i]*weight[i];
+        }
+        GD.Print("[+] Score :" + tmp);
+        fitness[index] = tmp;      // Temporaire  
     }
 
     public List<string> getIndividu(int index){

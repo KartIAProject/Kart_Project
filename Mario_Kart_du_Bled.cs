@@ -26,13 +26,17 @@ public float getTime(){
 	return time;
 }
 
-	public void setAll_Passed(bool[] tab){
-		all_passed = tab;
-	}
+public void setTime(float t){
+	time = t;
+}
 
-  public int getNbCheckpoints(){
-    return nb_checkpoint_passed;
-  }
+public void setAll_Passed(bool[] tab){
+	all_passed = tab;
+}
+
+public int getNbCheckpoints(){
+	return nb_checkpoint_passed;
+}
 
 public void setNbCheckpoints(int c){
     nb_checkpoint_passed = c;
@@ -46,6 +50,11 @@ public void setNbCheckpoints(int c){
 	  var msg = (GetNode<CanvasLayer>("HUD")).GetNode<Label>("time");
 	  msg.Text = "TIME :"+time;
 	  msg.Show();
+	  if(!all_passed[0] && !all_passed[1] && !all_passed[2] && !all_passed[3]){
+			var msg2 = (GetNode<CanvasLayer>("HUD")).GetNode<Label>("nbcp");
+			msg2.Text = "CHECKPOINT PASSED :"+nb_checkpoint_passed;
+			msg2.Show();
+	  }
   }
 
   public void _on_checkpoint1_body_entered(Node2D body)

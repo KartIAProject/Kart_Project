@@ -79,7 +79,7 @@ public class player : RigidBody2D
 
 		actualIndividu = new List<string>();
 
-		pop = new Population(10,500,1,2);
+		pop = new Population(50,800,1,2);
 		pop.generatePopulation();
 
 		/*var neatGenomeFactory = new NeatGenomeFactory(12, 4);
@@ -149,7 +149,7 @@ public class player : RigidBody2D
 
     	// prendre une décision avec le réseau de neurones
 
-		if(actualIndexIndividu == 10){
+		if(actualIndexIndividu == 50){
 			GD.Print("[+] New Population");
 			pop.evoluate();
 			actualIndexOfIndividu = 0;
@@ -162,12 +162,15 @@ public class player : RigidBody2D
 		bool[] tab = stringArrayToBool(actualIndividu[actualIndexOfIndividu]);
 		actualIndexOfIndividu++;
 
-		if(actualIndexOfIndividu == 500){
-			pop.calculateFitness(actualIndexIndividu,nbCheckpoints);
+		if(actualIndexOfIndividu == 800){
+			this.LinearVelocity = new Vector2(0,0);
+			int[] weight = {10000,10,10};
+			pop.calculateFitness(actualIndexIndividu,generateAttribute(nbCheckpoints,checkpointTab[nbCheckpoints],time),weight);
 			bool[] temp = new bool[4];
 			for(int k=0; k<4; k++){temp[k] = false;}
 			GetParent<Mario_Kart_du_Bled>().setAll_Passed(temp);
 			GetParent<Mario_Kart_du_Bled>().setNbCheckpoints(0);
+			GetParent<Mario_Kart_du_Bled>().setTime(0);
 			actualIndexOfIndividu = 0;
 			GD.Print("[+] New Individu");
 			actualIndexIndividu++;
@@ -180,6 +183,14 @@ public class player : RigidBody2D
 		//bool[] tab = Ia2.launch(this.Position,this.LinearVelocity,sens,checkpointTab[nbCheckpoints],time);
 		input(tab);
     }
+
+	public double[] generateAttribute(int nbCheckpoints, CollisionShape2D cp, double time){
+		double[] res = new double[3];
+		res[0] = nbCheckpoints;
+		res[1] = 10000/cp.Position.DistanceTo(this.Position);
+		res[2] = 0;//10/time;
+		return res;
+	}
 
 	public bool[] stringArrayToBool(string direction){
 		
