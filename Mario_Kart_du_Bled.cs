@@ -22,7 +22,7 @@ public class Mario_Kart_du_Bled : Node2D
 		
 	}
 
-public float getTime(){
+	public float getTime(){
 	return time;
 }
 
@@ -38,9 +38,9 @@ public int getNbCheckpoints(){
 	return nb_checkpoint_passed;
 }
 
-public void setNbCheckpoints(int c){
-    nb_checkpoint_passed = c;
-  }
+	public void setNbCheckpoints(int c){
+   		nb_checkpoint_passed = c;
+ 	}
 
   // Called every frame. 'delta' is the elapsed time since the previous frame.
   // Each checkpoint (Area2D objects) must be passd trought at least once before the finish line allow the best time to be displayed
@@ -145,6 +145,22 @@ public void setNbCheckpoints(int c){
 		if(body.Name == "player"){
 			body.VelocityInit();
 		}
+	}
+
+
+	// Pour remettre "tout" à zéro avec un nouvel individu :
+	public void resetAll(){
+		time = 0F;
+		var msg = (GetNode<CanvasLayer>("HUD")).GetNode<Label>("time");
+	  	msg.Text = "TIME :"+time;
+	  	msg.Show();
+		for(int i = 0; i<all_passed.Length; i++){
+			all_passed[i] = false;
+		}
+		nb_checkpoint_passed = 0F;
+		var msg2 = (GetNode<CanvasLayer>("HUD")).GetNode<Label>("nbcp");
+		msg2.Text = "CHECKPOINT PASSED :"+nb_checkpoint_passed;
+		msg2.Show();
 	}
 
 }
