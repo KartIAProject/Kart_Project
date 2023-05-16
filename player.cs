@@ -42,6 +42,8 @@ public class player : RigidBody2D
 
 	private Population pop;
 
+	private int nbIndividus = 5;
+
 	public player()
 		{
 			//Variables cgt vitesse zone lente
@@ -79,36 +81,9 @@ public class player : RigidBody2D
 
 		actualIndividu = new List<string>();
 
-		pop = new Population(50,800,1,2);
+		pop = new Population(nbIndividus,800,1,2);
 		pop.generatePopulation();
 
-		/*var neatGenomeFactory = new NeatGenomeFactory(12, 4);
-		var genomeList = neatGenomeFactory.CreateGenomeList(100, 0);
-
-		var neatParameters = new NeatEvolutionAlgorithmParameters
-		{
-			SpecieCount = 100
-		};
-
-		var distanceMetric = new ManhattanDistanceMetric();
-		var speciationStrategy = new KMeansClusteringStrategy<NeatGenome>
-			(distanceMetric);
-
-		var complexityRegulationStrategy = new NullComplexityRegulationStrategy();
-
-		var network = new NeatEvolutionAlgorithm<NeatGenome>
-			(neatParameters, speciationStrategy, complexityRegulationStrategy);
-
-		var activationScheme = NetworkActivationScheme.CreateCyclicFixedTimestepsScheme(1);
-		var genomeDecoder = new NeatGenomeDecoder(activationScheme);
-
-		var phenomeEvaluator = new YourPhenomeEvaluator();
-		var genomeListEvaluator = 
-			new ParallelGenomeListEvaluator<NeatGenome, IBlackBox>
-				(genomeDecoder, phenomeEvaluator);
-
-		network.Initialize(genomeListEvaluator, neatGenomeFactory, genomeList);*/
-		//Ia2.init();
     }
     public override void _PhysicsProcess(float delta)
     {   
@@ -149,7 +124,7 @@ public class player : RigidBody2D
 
     	// prendre une décision avec le réseau de neurones
 
-		if(actualIndexIndividu == 50){
+		if(actualIndexIndividu == nbIndividus){
 			GD.Print("[+] New Population");
 			pop.evoluate();
 			actualIndexOfIndividu = 0;

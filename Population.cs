@@ -58,7 +58,7 @@ class Population{
         
         Dictionary<double, string[]> array = new Dictionary<double, string[]>();
 
-        for(int i=0; i<individusArray.Length; i++){
+        for(int i=0; i<taillePopulation; i++){
             string[] tmp = new string[tailleIndividu];
             for(int j=0; j<tailleIndividu; j++){
                 tmp[j] = individusArray[i,j];
@@ -67,14 +67,15 @@ class Population{
         }
 
         // On trie le tableau pour avoir les meilleurs individus au début
-        Dictionary<double, string[]> sortArray  = array.OrderByDescending(x => x.Key).ToDictionary(x => x.Key, x => x.Value);
+        List<KeyValuePair<double, string[]>> sortArray  = array.OrderBy(x => x.Key).ToList();
 
         GD.Print("[+] Best score : "+ fitness.Max());
 
-        foreach (string[] value in sortArray.Values){
-            for(int i=0; i<individusArray.Length; i++){
+        foreach (KeyValuePair<double, string[]> keyValuePair in sortArray){
+            for(int i=0; i<taillePopulation; i++){
+                GD.Print("sdfsdf : "+keyValuePair.Key);
                 for(int j=0; j<tailleIndividu; j++){
-                    individusArray[i,j] = value[j];
+                    individusArray[i,j] = keyValuePair.Value[j];
                 }
             }
         }
@@ -155,20 +156,19 @@ class Population{
     }
 
     public void evoluate(){
-
+        sortPopulation();
         string[,] newIndividusArray = new string[taillePopulation,tailleIndividu];
         
         string tmp = "";
         // On ajoute le meilleur Individu 
         for(int i=0; i<tailleIndividu; i++){
-            newIndividusArray[0,i] = individusArray[0,i];
-            newIndividusArray[49,i] = individusArray[0,i];
+            newIndividusArray[taillePopulation-1,i] = individusArray[0,i];
             tmp += newIndividusArray[0,i] + ",";
         }
 
         GD.Print("[+] Best Individu : ["+tmp+"]");
 
-        for(int i=1; i<Convert.ToInt32((taillePopulation))-1; i+=2){
+        for(int i=0; i<Convert.ToInt32((taillePopulation))-1; i+=2){
             string[] individu1;
             string[] individu2;
             (individu1, individu2) = this.generateNewIndividu();
