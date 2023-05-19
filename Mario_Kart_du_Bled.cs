@@ -16,6 +16,8 @@ public class Mario_Kart_du_Bled : Node2D
 	public int nb_checkpoint_passed = 0;
 	public bool[] all_passed = {false, false, false, false};
 
+	public int nbZoneLente = 0;
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -24,6 +26,10 @@ public class Mario_Kart_du_Bled : Node2D
 
 	public float getTime(){
 	return time;
+}
+
+public int getNbZoneLente(){
+	return nbZoneLente;
 }
 
 public void setTime(float t){
@@ -144,6 +150,7 @@ public int getNbCheckpoints(){
 	{
 		if(body.Name == "player"){
 			body.VelocityInit();
+			nbZoneLente++;
 		}
 	}
 
