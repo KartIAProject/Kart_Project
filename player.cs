@@ -40,6 +40,8 @@ public class player : RigidBody2D
 
 	private int nbIndividus = 30;
 
+	private int numPopulation = 1;
+
 	public player()
 		{
 			//Variables cgt vitesse zone lente
@@ -80,6 +82,11 @@ public class player : RigidBody2D
 		// Quand on à parcouru tous les individus on fait évolué la population
 		if(actualIndexIndividu == nbIndividus){
 			GD.Print("[+] New Population");
+			// On affiche le numero de la population dans le HUD
+			this.numPopulation++;
+			GetParent<Mario_Kart_du_Bled>().setTextPopulation(this.numPopulation);
+			// Et on remet le numero de l'individu a 0
+			GetParent<Mario_Kart_du_Bled>().setTextIndividu(1);
 			pop.evoluate();
 
 			 // On remet la vitesse à 0
@@ -110,7 +117,7 @@ public class player : RigidBody2D
 			this.AngularVelocity = 0;
 
 			// On calcul son score
-			int[] weight = {10000,10,10,500};
+			int[] weight = {10000,10,10,200};
 			pop.calculateFitness(actualIndexIndividu,generateAttribute(nbCheckpoints,checkpointTab[nbCheckpoints],time,nbMurCogne),weight);
 
 			// On remet le temps à 0 ainsi que les checkpoints à 0 ainsi que le nombre de mur collisioné
@@ -128,6 +135,8 @@ public class player : RigidBody2D
 			
 			//On incrémente pour passe à l'individu suivant
 			actualIndexIndividu++;
+			// On affiche le numero de l'individu dans le HUD
+			GetParent<Mario_Kart_du_Bled>().setTextIndividu(this.actualIndexIndividu+1);
 
 			// On repositionne le nouveau individu sur la grille de départ
 			this.Position = new Vector2(1232,2517);
@@ -158,7 +167,7 @@ public class player : RigidBody2D
 
 		return res;
 	}
-	
+
 	public void input(bool[] tab)
 	{
 		this.LinearDamp = FRICTION;
