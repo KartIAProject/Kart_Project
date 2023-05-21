@@ -30,6 +30,25 @@ class Population{
 			this.vecteurDeplacement = vecteurDeplacement;
 		}
 
+		// Voir la doc godot pour chargement de fichier 
+		// https://docs.godotengine.org/fr/stable/classes/class_file.html
+		// Le contenu du fichier peut être lu après avoir fermé le jeu uniquement
+		// Sinon on peut peut être garder l'etat du fichier dans la classe mais bon...
+		public void writeToFile(){
+			string filePath = "./BestIndividu.json";
+			//json ne reconnait pas double du coup c'est un double dans un string
+			string texte = "{\n\"score\": \""+this.score+"\",\n"+
+			"\"tailleIndividu\": "+this.tailleIndividu+",\n"+
+			"\"vecteurDeplacement\": [\n";
+			foreach (string deplacement in this.vecteurDeplacement){
+				texte+="\""+deplacement+"\", ";
+			}
+			texte+="]\n }";
+			var file = new File();
+			file.Open(filePath, File.ModeFlags.Write);
+			file.StoreString(texte);
+		}
+
 
 		// Génère le vecteur de déplacement d'un individu
 		private void generateRandomIndividu(){
@@ -178,8 +197,11 @@ class Population{
 		
 		// On met à jour le meilleur individu
 		getBestIndividu();
+
+		// Sauvegarder les informations de l'individu dans un fichier json
+		bestIndividu.writeToFile();
 		
-		GD.Print(bestIndividu.score);
+		GD.Print("Meilleur individu : "+bestIndividu.score);
 
 		Individu individu1;
 		Individu individu2;
