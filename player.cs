@@ -72,6 +72,7 @@ public class player : RigidBody2D
 
         int nbCheckpoints = GetParent<Mario_Kart_du_Bled>().getNbCheckpoints();
 		float time = GetParent<Mario_Kart_du_Bled>().getTime();
+		float timeZonelente = GetParent<Mario_Kart_du_Bled>().getNbZoneLente();
 
 		// Quand on à parcouru tous les individus on fait évolué la population
 		if(actualIndexIndividu == nbIndividus){
@@ -106,8 +107,8 @@ public class player : RigidBody2D
 			this.AngularVelocity = 0;
 
 			// On calcul son score
-			int[] weight = {10000,10,10};
-			pop.calculateFitness(actualIndexIndividu,generateAttribute(nbCheckpoints,checkpointTab[nbCheckpoints],time),weight);
+			int[] weight = {2500,10,-15};
+			pop.calculateFitness(actualIndexIndividu,generateAttribute(nbCheckpoints,checkpointTab[nbCheckpoints],timeZonelente),weight);
 
 			// On remet le temps à 0 ainsi que les checkpoints à 0
 			bool[] temp = new bool[4];
@@ -115,6 +116,7 @@ public class player : RigidBody2D
 			GetParent<Mario_Kart_du_Bled>().setAll_Passed(temp);
 			GetParent<Mario_Kart_du_Bled>().setNbCheckpoints(0);
 			GetParent<Mario_Kart_du_Bled>().setTime(0);
+			GetParent<Mario_Kart_du_Bled>().setNbZoneLente(0);
 			
 			// On met l'index du tableau de mouvements à 0
 			actualIndexOfIndividu = 0;
@@ -133,11 +135,11 @@ public class player : RigidBody2D
     }
 
 	// Gère les attributs pour la fonction de fitness
-	public double[] generateAttribute(int nbCheckpoints, CollisionShape2D cp, double time){
+	public double[] generateAttribute(int nbCheckpoints, CollisionShape2D cp, float timeZonelente){
 		double[] res = new double[3];
 		res[0] = nbCheckpoints;
 		res[1] = 10000/cp.Position.DistanceTo(this.Position);
-		res[2] = 0;//10/time;
+		res[2] = timeZonelente/0.1;
 		return res;
 	}
 

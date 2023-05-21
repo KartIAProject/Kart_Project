@@ -15,8 +15,8 @@ public class Mario_Kart_du_Bled : Node2D
 	public float best_time = 999F;
 	public int nb_checkpoint_passed = 0;
 	public bool[] all_passed = {false, false, false, false};
-
-	public int nbZoneLente = 0;
+	public float ticZoneLente;
+	public float nbZoneLente = 0F;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -28,8 +28,12 @@ public class Mario_Kart_du_Bled : Node2D
 	return time;
 }
 
-public int getNbZoneLente(){
+public float getNbZoneLente(){
 	return nbZoneLente;
+}
+
+public void setNbZoneLente(float t){
+	nbZoneLente = t;
 }
 
 public void setTime(float t){
@@ -142,6 +146,7 @@ public int getNbCheckpoints(){
 	public void _on_ZoneLente_body_entered(player body)
 	{
 		if(body.Name == "player"){
+			ticZoneLente = time;
 			body.VelocityZL();
     }
 	}
@@ -149,6 +154,7 @@ public int getNbCheckpoints(){
 	public void _on_ZoneLente_body_exited(player body)
 	{
 		if(body.Name == "player"){
+			nbZoneLente += time - ticZoneLente;
 			body.VelocityInit();
 			nbZoneLente++;
 		}
@@ -158,6 +164,7 @@ public int getNbCheckpoints(){
 	// Pour remettre "tout" à zéro avec un nouvel individu :
 	public void resetAll(){
 		time = 0F;
+		nbZoneLente = 0F;
 		var msg = (GetNode<CanvasLayer>("HUD")).GetNode<Label>("time");
 	  	msg.Text = "TIME :"+time;
 	  	msg.Show();
