@@ -24,6 +24,10 @@ window/size/width=1920
 window/size/height=1080
 window/handheld/orientation="portrait"
 
+[global]
+
+silen=false
+
 [input_devices]
 
 pointing/emulate_touch_from_mouse=true

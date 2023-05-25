@@ -1,0 +1,11 @@
+<Project Sdk="Godot.NET.Sdk/3.3.0">
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="NeuronDotNet" Version="3.0.0" />
+    <PackageReference Include="NeuronDotNet.Core45" Version="3.0.0.1" />
+    <PackageReference Include="SharpNeatLib" Version="2.4.4" />
+    <PackageReference Include="TensorFlowSharp" Version="1.15.1" />
+  </ItemGroup>
+</Project>
