@@ -7,5 +7,6 @@ soit dans l'éditeur Godot soit dans un fichier de log (détails dans l'onglet R
 
 La [vidéo de démonstration](Demonstration/demonstration.mp4) dans le dossier Demonstration montre un example de déroulement 
 des populations (la 3ème, la 19ème et la 36ème).
+La vidéo utilise le décodeur H.264 mais doit s'ouvrir bien avec VLC.  
 
 Vous pouvez également consulter [le rapport du projet](Rapport/rapport.pdf) dans le dossier Rapport
